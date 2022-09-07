@@ -1,0 +1,217 @@
+public class EmployeeBook {
+    private static final int arrCount = 10;
+    private Employee[] arr = new Employee[arrCount];
+    private int index;
+    private int department;
+    private double salary;
+    private String fullName;
+    private static int countId = 0;
+
+    public void createNewEmployee(String fullName, int department, double salary) {
+        this.fullName = fullName;
+        this.department = department;
+        this.salary = salary;
+        countId++;
+        Employee countId = new Employee(fullName, department, salary);
+        for (int i = 0; i < arrCount; i++) {
+            if ((arr[i].getFullName()).equals("") && arr[i].getDepartment() == 0 && arr[i].getSalaryInfo() == 0) {
+                arr[i] = countId;
+                break;
+            }
+        }
+    }
+    public void deleteEmployee(int id) {
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getId() == id) {
+                arr[i].setFullName("");
+                arr[i].setDepartment(0);
+                arr[i].setSalary(0);
+            }
+        }
+    }
+    public void deleteEmployee(String fullName) {
+        this.fullName = fullName;
+        for (int i = 0; i < arrCount; i++) {
+            if ((arr[i].getFullName()).equals(fullName)) {
+                arr[i].setFullName("");
+                arr[i].setDepartment(0);
+                arr[i].setSalary(0);
+            }
+        }
+    }
+    //Придумать архитектуру. Сделать или два метода, или один, но продумать его.
+    //-Мне что сканнер подключать для выбора изменения? а то в параметрах цифру с выбором (1, 2, 3) мне писать лень, ибо такая реализация пахнет неочень. Оставляю пока "непродуманной".
+    public void changeParametersEmployee(String fullName, int department, double salary) {
+        this.fullName = fullName;
+        this.department = department;
+        this.salary = salary;
+        for (int i = 0; i < arrCount; i++) {
+            if ((arr[i].getFullName().equals(fullName))) {
+                arr[i].setDepartment(department);
+                arr[i].setSalary(salary);
+            }
+        }
+    }
+    public void printAllEmployersFullNameByDepartment() {
+        for (int i = 1; i < 6; i++) {
+            printFullNameByDepartment(i);
+        }
+    }
+    public void printFullNameByDepartment(int department) {
+        this.department = department;
+        System.out.println("Department " + department +": ");
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getDepartment() == department) {
+                System.out.print(arr[i].getFullName() + ", ");
+            }
+        }
+    }
+//-----------------------------------------------------------------
+    public void printAllEmployersInfo() {
+        for (int i = 0; i < arrCount; i++) {
+            System.out.print(arr[i].toString() + " || ");
+        }
+    }
+    public double getAllSalary() {
+        double allSalary = 0;
+        for (int i = 0; i < arrCount; i++) {
+            allSalary = arr[i].getSalaryInfo() + allSalary;
+        }
+        return allSalary;
+    }
+    public double getMinSalary() {
+        double minSalary = arr[0].getSalaryInfo();
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getSalaryInfo() < minSalary) {
+                minSalary = arr[i].getSalaryInfo();
+            }
+        }
+        return minSalary;
+    }
+    public double getMaxSalary() {
+        double maxSalary = arr[0].getSalaryInfo();
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getSalaryInfo() > maxSalary) {
+                maxSalary = arr[i].getSalaryInfo();
+            }
+        }
+        return maxSalary;
+    }
+    public double getMiddleSalary() {
+        double middleSalary = 0;
+        double allSalary = 0;
+        for (int i = 0; i < arrCount; i++) {
+            allSalary = arr[i].getSalaryInfo() + allSalary;
+        }
+        middleSalary = allSalary / arrCount;
+        return middleSalary;
+    }
+    public void printFullNameAllEmployers() {
+        for (int i = 0; i < arrCount; i++) {
+            System.out.print(arr[i].getFullName() + " || ");
+        }
+    }
+    //Hard-mode
+    //Ля, я же мог сделать новую ветку, а не делать отдельный проект! чука. Благо я тупой и написал код в этом проекте. Хоть в чем-то плюсики имеются.:Ъ
+    /* задание:
+    Получить в качестве параметра номер отдела (1–5) и найти (всего 6 методов):
+    1. Сотрудника с минимальной зарплатой.
+    2. Сотрудника с максимальной зарплатой.
+    3. Сумму затрат на зарплату по отделу.
+    4. Среднюю зарплату по отделу (учесть, что количество людей в отделе отличается от employees.length).
+    5. Проиндексировать зарплату всех сотрудников отдела на процент, который приходит в качестве параметра.
+    6. Напечатать всех сотрудников отдела (все данные, кроме отдела).
+     */
+    public Employee[] getSalaryIndexing(int index) {
+        this.index = index;
+        index = index / 100;
+        for (int i = 0; i < arrCount; i++) {
+            double salaryIncrease = 0;
+            salaryIncrease = arr[i].getSalaryInfo() + (arr[i].getSalaryInfo() * index);
+            arr[i].setSalary(salaryIncrease);
+        }
+        return arr;
+    }
+    public double getMinSalaryOfDepartment(int department) {
+        this.department = department;
+        //ну тут сложновато делать какие-то манипуляции с мин зарплатой. поставлю невозможную цифру.
+        double minSalary = 900000000;
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getDepartment() == department) {
+                if (arr[i].getSalaryInfo() < minSalary) {
+                    minSalary = arr[i].getSalaryInfo();
+                }
+            }
+        }
+        return minSalary;
+    }
+    public double getMaxSalaryOfDepartment(int department) {
+        this.department = department;
+        double maxSalary = 0;
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getDepartment() == department) {
+                if (arr[i].getSalaryInfo() > maxSalary) {
+                    maxSalary = arr[i].getSalaryInfo();
+                }
+            }
+        }
+        return maxSalary;
+    }
+    public double getAllSalaryOfDepartment(int department) {
+        this.department = department;
+        double allSalary = 0;
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getDepartment() == department) {
+                allSalary = arr[i].getSalaryInfo() + allSalary;
+            }
+        }
+        return allSalary;
+    }
+    public double getMiddleSalaryOfDepartment(int department) {
+        this.department = department;
+        double countEmployeeOfDepartment = 0;
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getDepartment() == department) {
+                countEmployeeOfDepartment++;
+            }
+        }
+        return getAllSalaryOfDepartment(department) / countEmployeeOfDepartment;
+    }
+    public Employee[] getSalaryIndexingOfDepartment(int department, int index) {
+        this.department = department;
+        this.index = index;
+        index = index / 100;
+        for (int i = 0; i < arrCount; i++) {
+            double salaryIncrease = 0;
+            if (arr[i].getDepartment() == department) {
+                salaryIncrease = arr[i].getSalaryInfo() + (arr[i].getSalaryInfo() * index);
+                arr[i].setSalary(salaryIncrease);
+            }
+        }
+        return arr;
+    }
+    public void printAllEmployersInfoOfDepartment(int department) {
+        this.department = department;
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getDepartment() == department) {
+                System.out.print(arr[i].getFullName() + ", " + arr[i].getSalaryInfo() + " || ");
+            }
+        }
+    }
+    public void printAllEmployersBelowSalary(double salary) {
+        this.salary = salary;
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getSalaryInfo() < salary) {
+                System.out.print(arr[i].getId() + ", " + arr[i].getFullName() + ", " + arr[i].getSalaryInfo() + " || ");
+            }
+        }
+    }
+    public void printAllEmployersAboveSalary(double salary) {
+        this.salary = salary;
+        for (int i = 0; i < arrCount; i++) {
+            if (arr[i].getSalaryInfo() >= salary) {
+                System.out.print(arr[i].getId() + ", " + arr[i].getFullName() + ", " + arr[i].getSalaryInfo() + " || ");
+            }
+        }
+    }
+}
