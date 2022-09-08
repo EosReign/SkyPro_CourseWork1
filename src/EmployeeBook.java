@@ -9,8 +9,6 @@ public class EmployeeBook {
             if (arr[i] == null) {
                 arr[i] = countId;
                 break;
-            } else {
-                System.out.println("Не хватает места, расширьте массив или удалите одну ячейку.");
             }
         }
     }
