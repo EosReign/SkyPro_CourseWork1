@@ -3,14 +3,14 @@ public class Employee {
     private String fullName;
     private int department;
     private double salary;
-
+    private final int id;
     static int countId = 0;
 
     public Employee(String fullName, int department, double salary) {
         this.fullName = fullName;
         this.department = department;
         this.salary = salary;
-        countId++;
+        this.id = countId++;
         }
     public String getFullName() {
         return fullName;

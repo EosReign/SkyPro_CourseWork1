@@ -1,14 +1,11 @@
 public class EmployeeBook {
     private static final int arrCount = 10;
-    private static int employeeID = 0;
     private Employee[] arr = new Employee[arrCount];
     public void createNewEmployee(String fullName, int department, double salary) {
-        employeeID++;
-
-        Employee employeeID = new Employee(fullName, department, salary);
+        Employee employee = new Employee(fullName, department, salary);
         for (int i = 0; i < arrCount; i++) {
             if (arr[i] == null) {
-                arr[i] = employeeID;
+                arr[i] = employee;
                 break;
             }
         }
